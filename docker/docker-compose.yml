@@ -1,0 +1,30 @@
+version: "3.4"
+
+services:
+  database:
+    build:
+      context: .
+      dockerfile: db.Dockerfile
+    image: eosdublin/fio-registrations/db
+    container_name: fio-registrations-${NODE_ENV}-database
+    restart: unless-stopped
+    user: postgres
+    volumes:
+      - ../var/pgdata:/var/lib/postgresql/data
+    env_file:
+      - ./.env-postgres
+
+  app:
+    build:
+      context: ../
+      dockerfile: ./docker/app.Dockerfile
+    image: eosdublin/fio-registrations/web
+    container_name: fio-registrations-${NODE_ENV}-web
+    restart: unless-stopped
+    depends_on:
+      - "database"
+    command: ${NPM_RUN}
+    ports:
+      - "5000:5000"
+    env_file:
+      - ../.env-server
