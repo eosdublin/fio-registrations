@@ -48,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   BlockchainTrxEvent.associate = function(models) {
-    BlockchainTrxEvent.belongsTo(models.BlockchainTrx, {foreignKey: 'blockchain_trx_id'});
+    BlockchainTrxEvent.belongsTo(models.BlockchainTrx, {foreignKey: 'blockchain_trx_id', constraints: false});
     BlockchainTrxEvent.belongsTo(models.WebhookEvent, {foreignKey: 'webhook_event_id'})
   };
 
