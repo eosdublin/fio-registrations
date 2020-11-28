@@ -1,6 +1,7 @@
 #!/bin/bash
 COMMAND="${1:-"up -d"}"
 NPM_RUN="${2:-start}"
-ENVIRONMENT="${3:-production}"
+PORT="${3:-8080}"
+ENVIRONMENT="${4:-production}"
 
-NODE_ENV="$ENVIRONMENT" NPM_RUN="$NPM_RUN" docker-compose ${COMMAND}
+NODE_ENV="$ENVIRONMENT" NPM_RUN="$NPM_RUN" PORT="$PORT" docker-compose ${COMMAND}

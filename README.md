@@ -142,6 +142,28 @@ registration drop-down.  You may register such a domain using this server,
 however it will need to be set public via another method such as the
 clio command line.
 
+## Docker
+
+The `docker` folder contains Dockerfiles and supporting data to build Docker images
+to run the solution.
+
+- `db.Dockerfile` creates a Postgres image that has a startup script to init the database
+- `app.Dockerfile` creates an image that will run the API and admin interface
+- `docker-compose.yml` handles running the above to containers
+- `compose.sh` is a shortcut for building/running the app
+
+1. `$ ./compose.sh build` to build the Docker images
+2. `$ ./compose.sh "up -d" sync` to init the database
+3. `$ ./compose.sh "up -d" seed` to seed the database
+4. `$ ./compose.sh` to run the database and app
+5. `$ ./compose.sh down` to shutdown
+
+Override the parameters to `compose.sh` to change:
+
+- The script passed to `npm run`
+- The public port for the app
+- The node environment
+
 ## Development
 
 Example **fio-registration** webhook server.  Replace with a wallet's webhook signature verification key.
